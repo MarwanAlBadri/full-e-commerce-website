@@ -6,6 +6,7 @@ import ProductCard from "../ui/ProductCard";
 import { flashSaleProducts } from "../../data/products";
 import { useCountdown } from "../../hooks/useCountdown";
 import timerDot from "../../assets/icons/timer-dot.svg";
+import { ROUTES } from "../../constants/routes";
 
 const FLASH_SALE_SECONDS = 3 * 86400 + 23 * 3600 + 19 * 60 + 56;
 
@@ -68,7 +69,7 @@ export default function FlashSales() {
 
             <div className="mt-[60px] flex justify-center">
                 <Link
-                    to="/"
+                    to={ROUTES.home}
                     className="rounded bg-primary px-12 py-4 text-mid leading-6 font-medium text-heading-white hover:opacity-90"
                 >
                     View All Products

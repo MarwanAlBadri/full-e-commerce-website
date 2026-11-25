@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import chevronRight from "../../assets/icons/chevron-right.svg";
+import { ROUTES } from "../../constants/routes";
 
 const categories = [
     { label: "Woman’s Fashion", slug: "womens-fashion", hasChildren: true },
@@ -19,7 +20,7 @@ export default function CategorySidebar() {
             {categories.map(({ label, slug, hasChildren }) => (
                 <Link
                     key={slug}
-                    to={`/?category=${slug}`}
+                    to={`${ROUTES.home}?category=${slug}`}
                     className="flex items-center justify-between text-mid leading-6 text-text-black hover:text-primary"
                 >
                     {label}

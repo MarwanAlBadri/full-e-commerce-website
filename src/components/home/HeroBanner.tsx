@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import heroImage from "../../assets/home/hero-iphone.png";
 import appleLogo from "../../assets/home/apple-logo.png";
 import arrowRight from "../../assets/icons/arrow-right.svg";
+import { ROUTES } from "../../constants/routes";
 
 const DOTS = 5;
 
@@ -27,7 +28,7 @@ export default function HeroBanner() {
                     Up to 10% off Voucher
                 </h2>
                 <Link
-                    to="/"
+                    to={ROUTES.home}
                     className="flex w-fit items-center gap-2 border-b border-heading-white pb-1 text-mid leading-6 font-medium text-heading-white"
                 >
                     Shop Now

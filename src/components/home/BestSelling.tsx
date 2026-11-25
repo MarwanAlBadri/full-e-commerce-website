@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import SectionHeader from "../ui/SectionHeader";
 import ProductCard from "../ui/ProductCard";
 import { bestSellingProducts } from "../../data/products";
+import { ROUTES } from "../../constants/routes";
 
 export default function BestSelling() {
     return (
@@ -9,7 +10,7 @@ export default function BestSelling() {
             <div className="flex flex-wrap items-end justify-between gap-6">
                 <SectionHeader label="This Month" title="Best Selling Products" />
                 <Link
-                    to="/"
+                    to={ROUTES.home}
                     className="rounded bg-primary px-12 py-4 text-mid leading-6 font-medium text-heading-white hover:opacity-90"
                 >
                     View All

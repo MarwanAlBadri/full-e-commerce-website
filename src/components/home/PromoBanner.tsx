@@ -3,6 +3,7 @@ import { useCountdown } from "../../hooks/useCountdown";
 import boombox from "../../assets/home/boombox.png";
 import glow from "../../assets/home/promo-glow.svg";
 import timerCircle from "../../assets/icons/timer-circle.svg";
+import { ROUTES } from "../../constants/routes";
 
 const PROMO_SECONDS = 5 * 86400 + 23 * 3600 + 59 * 60 + 35;
 
@@ -36,7 +37,7 @@ export default function PromoBanner() {
                         <TimeCircle value={seconds} label="Seconds" />
                     </div>
                     <Link
-                        to="/"
+                        to={ROUTES.home}
                         className="rounded bg-green px-12 py-4 text-mid leading-6 font-medium text-heading-white hover:opacity-90"
                     >
                         Buy Now!

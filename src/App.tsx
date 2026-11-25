@@ -4,15 +4,16 @@ import Placeholder from "./pages/Placeholder";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import { PRODUCT_ROUTE_PATTERN, ROUTES } from "./constants/routes";
 
 const pages = [
-    { path: "/wishlist", title: "Wishlist" },
-    { path: "/cart", title: "Cart" },
-    { path: "/checkout", title: "Checkout" },
-    { path: "/account", title: "Account" },
-    { path: "/about", title: "About" },
-    { path: "/contact", title: "Contact" },
-    { path: "/product/:id", title: "Product Details" },
+    { path: ROUTES.wishlist, title: "Wishlist" },
+    { path: ROUTES.cart, title: "Cart" },
+    { path: ROUTES.checkout, title: "Checkout" },
+    { path: ROUTES.account, title: "Account" },
+    { path: ROUTES.about, title: "About" },
+    { path: ROUTES.contact, title: "Contact" },
+    { path: PRODUCT_ROUTE_PATTERN, title: "Product Details" },
     { path: "*", title: "404 Not Found" },
 ];
 
@@ -21,9 +22,9 @@ export default function App() {
         <BrowserRouter>
             <Routes>
                 <Route element={<Layout />}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/signup" element={<SignUp />} />
-                    <Route path="/login" element={<Login />} />
+                    <Route path={ROUTES.home} element={<Home />} />
+                    <Route path={ROUTES.signUp} element={<SignUp />} />
+                    <Route path={ROUTES.logIn} element={<Login />} />
                     {pages.map(({ path, title }) => (
                         <Route key={path} path={path} element={<Placeholder title={title} />} />
                     ))}

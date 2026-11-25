@@ -4,15 +4,16 @@ import searchIcon from "../../assets/icons/search.svg";
 import wishlistIcon from "../../assets/icons/wishlist.svg";
 import cartIcon from "../../assets/icons/cart.svg";
 import underline from "../../assets/icons/underline.svg";
+import { ROUTES } from "../../constants/routes";
 
 const links = [
-    { to: "/", label: "Home" },
-    { to: "/contact", label: "Contact" },
-    { to: "/about", label: "About" },
-    { to: "/signup", label: "Sign Up" },
+    { to: ROUTES.home, label: "Home" },
+    { to: ROUTES.contact, label: "Contact" },
+    { to: ROUTES.about, label: "About" },
+    { to: ROUTES.signUp, label: "Sign Up" },
 ];
 
-const authRoutes = ["/signup", "/login"];
+const authRoutes: string[] = [ROUTES.signUp, ROUTES.logIn];
 
 export default function Header() {
     const { pathname } = useLocation();
@@ -24,7 +25,7 @@ export default function Header() {
             <div className="mx-auto flex max-w-[1202px] flex-wrap items-center justify-between gap-x-6 gap-y-4 px-4">
                 <div className="flex items-start lg:gap-16 xl:gap-[190px]">
                     <Link
-                        to="/"
+                        to={ROUTES.home}
                         className="font-inter text-xxl leading-6 font-bold tracking-[0.72px] text-text-black"
                     >
                         Exclusive
@@ -63,10 +64,10 @@ export default function Header() {
                     </label>
                     {!isAuthPage && (
                         <div className="flex items-center gap-4">
-                            <Link to="/wishlist">
+                            <Link to={ROUTES.wishlist}>
                                 <img src={wishlistIcon} alt="Wishlist" className="size-8" />
                             </Link>
-                            <Link to="/cart">
+                            <Link to={ROUTES.cart}>
                                 <img src={cartIcon} alt="Cart" className="size-8" />
                             </Link>
                         </div>

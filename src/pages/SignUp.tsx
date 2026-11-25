@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import AuthLayout, { authInputClass } from "../components/auth/AuthLayout";
 import googleIcon from "../assets/icons/google.svg";
+import { ROUTES } from "../constants/routes";
 
 export default function SignUp() {
     return (
@@ -59,7 +60,10 @@ export default function SignUp() {
 
             <p className="mt-8 flex items-center justify-center gap-4 text-mid leading-6">
                 <span className="opacity-70">Already have account?</span>
-                <Link to="/login" className="border-b border-black/40 pb-1 font-medium opacity-70">
+                <Link
+                    to={ROUTES.logIn}
+                    className="border-b border-black/40 pb-1 font-medium opacity-70"
+                >
                     Log in
                 </Link>
             </p>

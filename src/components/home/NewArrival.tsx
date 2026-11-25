@@ -5,11 +5,12 @@ import echo from "../../assets/home/na-echo.png";
 import perfume from "../../assets/home/na-perfume.png";
 import glowSpeakers from "../../assets/home/na-glow-1.svg";
 import glowPerfume from "../../assets/home/na-glow-2.svg";
+import { ROUTES } from "../../constants/routes";
 
 function ShopNow({ className = "" }: { className?: string }) {
     return (
         <Link
-            to="/"
+            to={ROUTES.home}
             className={`w-fit border-b border-white text-mid leading-6 font-medium text-white ${className}`}
         >
             Shop Now

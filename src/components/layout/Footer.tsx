@@ -9,6 +9,7 @@ import footerLine from "../../assets/icons/footer-line.svg";
 import qrcode from "../../assets/images/qrcode.png";
 import googlePlay from "../../assets/images/googleplay.png";
 import appStore from "../../assets/images/appstore.png";
+import { ROUTES } from "../../constants/routes";
 
 const columnTitle = "text-xl leading-7 font-medium";
 const columnList = "flex flex-col gap-4 text-mid leading-6";
@@ -47,11 +48,11 @@ export default function Footer() {
                 <div className="flex flex-col gap-6">
                     <p className={columnTitle}>Account</p>
                     <div className={columnList}>
-                        <Link to="/account">My Account</Link>
-                        <Link to="/login">Login / Register</Link>
-                        <Link to="/cart">Cart</Link>
-                        <Link to="/wishlist">Wishlist</Link>
-                        <Link to="/">Shop</Link>
+                        <Link to={ROUTES.account}>My Account</Link>
+                        <Link to={ROUTES.logIn}>Login / Register</Link>
+                        <Link to={ROUTES.cart}>Cart</Link>
+                        <Link to={ROUTES.wishlist}>Wishlist</Link>
+                        <Link to={ROUTES.home}>Shop</Link>
                     </div>
                 </div>
 
@@ -61,7 +62,7 @@ export default function Footer() {
                         <a href="#">Privacy Policy</a>
                         <a href="#">Terms Of Use</a>
                         <a href="#">FAQ</a>
-                        <Link to="/contact">Contact</Link>
+                        <Link to={ROUTES.contact}>Contact</Link>
                     </div>
                 </div>
 

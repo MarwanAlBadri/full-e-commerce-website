@@ -3,6 +3,7 @@ import SectionHeader from "../ui/SectionHeader";
 import CarouselArrows from "../ui/CarouselArrows";
 import ProductCard from "../ui/ProductCard";
 import { exploreProducts } from "../../data/products";
+import { ROUTES } from "../../constants/routes";
 
 export default function ExploreProducts() {
     return (
@@ -21,7 +22,7 @@ export default function ExploreProducts() {
 
             <div className="mt-[60px] flex justify-center">
                 <Link
-                    to="/"
+                    to={ROUTES.home}
                     className="rounded bg-primary px-12 py-4 text-mid leading-6 font-medium text-heading-white hover:opacity-90"
                 >
                     View All Products
