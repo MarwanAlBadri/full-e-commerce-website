@@ -6,12 +6,17 @@ import perfume from "../../assets/home/na-perfume.png";
 import glowSpeakers from "../../assets/home/na-glow-1.svg";
 import glowPerfume from "../../assets/home/na-glow-2.svg";
 import { ROUTES } from "../../constants/routes";
+import Container from "../ui/Container";
+import { cn } from "../../lib/cn";
 
-function ShopNow({ className = "" }: { className?: string }) {
+function ShopNow({ className }: { className?: string }) {
     return (
         <Link
             to={ROUTES.home}
-            className={`w-fit border-b border-white text-mid leading-6 font-medium text-white ${className}`}
+            className={cn(
+                "w-fit border-b border-white text-mid leading-6 font-medium text-white",
+                className,
+            )}
         >
             Shop Now
         </Link>
@@ -31,7 +36,7 @@ function CardText({ title, description }: { title: string; description: string }
 
 export default function NewArrival() {
     return (
-        <section className="mx-auto max-w-[1202px] px-4">
+        <Container as="section">
             <SectionHeader label="Featured" title="New Arrival" />
 
             <div className="mt-[60px] grid gap-[30px] lg:grid-cols-2">
@@ -131,6 +136,6 @@ export default function NewArrival() {
                     </div>
                 </div>
             </div>
-        </section>
+        </Container>
     );
 }

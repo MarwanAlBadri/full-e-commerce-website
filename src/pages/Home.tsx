@@ -7,6 +7,7 @@ import PromoBanner from "../components/home/PromoBanner";
 import ExploreProducts from "../components/home/ExploreProducts";
 import NewArrival from "../components/home/NewArrival";
 import Services from "../components/home/Services";
+import Container from "../components/ui/Container";
 
 function Divider() {
     return <hr className="mx-auto w-[calc(100%-2rem)] max-w-[1170px] border-black/30" />;
@@ -15,14 +16,14 @@ function Divider() {
 export default function Home() {
     return (
         <div className="pb-16 lg:pb-[140px]">
-            <div className="mx-auto flex max-w-[1202px] px-4">
+            <Container className="flex">
                 <div className="hidden pt-10 pr-4 lg:block lg:border-r lg:border-black/30">
                     <CategorySidebar />
                 </div>
                 <div className="min-w-0 flex-1 pt-10 lg:pl-[45px]">
                     <HeroBanner />
                 </div>
-            </div>
+            </Container>
 
             <div className="mt-16 lg:mt-[140px]">
                 <FlashSales />

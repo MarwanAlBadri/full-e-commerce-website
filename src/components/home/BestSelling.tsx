@@ -1,20 +1,16 @@
-import { Link } from "react-router-dom";
 import SectionHeader from "../ui/SectionHeader";
 import ProductCard from "../ui/ProductCard";
 import { bestSellingProducts } from "../../data/products";
 import { ROUTES } from "../../constants/routes";
+import Container from "../ui/Container";
+import Button from "../ui/Button";
 
 export default function BestSelling() {
     return (
-        <section className="mx-auto max-w-[1202px] px-4">
+        <Container as="section">
             <div className="flex flex-wrap items-end justify-between gap-6">
                 <SectionHeader label="This Month" title="Best Selling Products" />
-                <Link
-                    to={ROUTES.home}
-                    className="rounded bg-primary px-12 py-4 text-mid leading-6 font-medium text-heading-white hover:opacity-90"
-                >
-                    View All
-                </Link>
+                <Button to={ROUTES.home}>View All</Button>
             </div>
 
             <div className="mt-[60px] grid gap-[30px] sm:grid-cols-2 lg:grid-cols-4">
@@ -22,6 +18,6 @@ export default function BestSelling() {
                     <ProductCard key={product.id} product={product} />
                 ))}
             </div>
-        </section>
+        </Container>
     );
 }

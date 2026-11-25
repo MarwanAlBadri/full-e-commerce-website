@@ -5,6 +5,8 @@ import wishlistIcon from "../../assets/icons/wishlist.svg";
 import cartIcon from "../../assets/icons/cart.svg";
 import underline from "../../assets/icons/underline.svg";
 import { ROUTES } from "../../constants/routes";
+import Container from "../ui/Container";
+import { cn } from "../../lib/cn";
 
 const links = [
     { to: ROUTES.home, label: "Home" },
@@ -22,7 +24,7 @@ export default function Header() {
 
     return (
         <header className="border-b border-black/30 py-4 lg:pt-10">
-            <div className="mx-auto flex max-w-[1202px] flex-wrap items-center justify-between gap-x-6 gap-y-4 px-4">
+            <Container className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
                 <div className="flex items-start lg:gap-16 xl:gap-[190px]">
                     <Link
                         to={ROUTES.home}
@@ -31,7 +33,10 @@ export default function Header() {
                         Exclusive
                     </Link>
                     <nav
-                        className={`${menuOpen ? "flex" : "hidden"} absolute top-full left-0 z-10 w-full flex-col items-start gap-4 border-b border-black/30 bg-background px-4 py-4 lg:static lg:flex lg:w-auto lg:flex-row lg:gap-12 lg:border-0 lg:p-0`}
+                        className={cn(
+                            "absolute top-full left-0 z-10 w-full flex-col items-start gap-4 border-b border-black/30 bg-background px-4 py-4 lg:static lg:flex lg:w-auto lg:flex-row lg:gap-12 lg:border-0 lg:p-0",
+                            menuOpen ? "flex" : "hidden",
+                        )}
                     >
                         {links.map(({ to, label }) => (
                             <NavLink
@@ -95,7 +100,7 @@ export default function Header() {
                         </svg>
                     </button>
                 </div>
-            </div>
+            </Container>
         </header>
     );
 }

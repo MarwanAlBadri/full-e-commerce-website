@@ -4,6 +4,7 @@ import heroImage from "../../assets/home/hero-iphone.png";
 import appleLogo from "../../assets/home/apple-logo.png";
 import arrowRight from "../../assets/icons/arrow-right.svg";
 import { ROUTES } from "../../constants/routes";
+import { cn } from "../../lib/cn";
 
 const DOTS = 5;
 
@@ -50,7 +51,10 @@ export default function HeroBanner() {
                         aria-label={`Slide ${i + 1}`}
                         aria-current={i === active}
                         onClick={() => setActive(i)}
-                        className={`size-3 cursor-pointer rounded-full ${i === active ? "bg-primary ring-2 ring-heading-white" : "bg-white/50"}`}
+                        className={cn(
+                            "size-3 cursor-pointer rounded-full",
+                            i === active ? "bg-primary ring-2 ring-heading-white" : "bg-white/50",
+                        )}
                     />
                 ))}
             </div>

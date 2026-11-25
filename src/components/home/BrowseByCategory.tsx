@@ -7,6 +7,8 @@ import computerIcon from "../../assets/icons/cat-computer.svg";
 import cameraIcon from "../../assets/icons/cat-camera.svg";
 import headphoneIcon from "../../assets/icons/cat-headphone.svg";
 import gamepadIcon from "../../assets/icons/cat-gamepad.svg";
+import Container from "../ui/Container";
+import { cn } from "../../lib/cn";
 
 const icon = (src: string) => <img src={src} alt="" className="size-14" />;
 
@@ -26,6 +28,12 @@ const categories: Category[] = [
     { label: "Gaming", icon: icon(gamepadIcon), iconColor: "black" },
 ];
 
+/** The camera artwork is white and the rest are black, so recolour to match the card. */
+function getIconFilter(iconColor: Category["iconColor"], isSelected: boolean) {
+    if (iconColor === "white") return isSelected ? "" : "brightness-0";
+    return isSelected ? "brightness-0 invert" : "";
+}
+
 export default function BrowseByCategory() {
     const [selected, setSelected] = useState("Camera");
     const trackRef = useRef<HTMLDivElement>(null);
@@ -37,7 +45,7 @@ export default function BrowseByCategory() {
         });
 
     return (
-        <section className="mx-auto max-w-[1202px] px-4">
+        <Container as="section">
             <div className="flex flex-wrap items-end justify-between gap-6">
                 <SectionHeader label="Categories" title="Browse By Category" />
                 <CarouselArrows onPrev={() => scroll(-1)} onNext={() => scroll(1)} />
@@ -49,15 +57,6 @@ export default function BrowseByCategory() {
             >
                 {categories.map(({ label, icon: iconNode, iconColor }) => {
                     const isSelected = selected === label;
-                    // Re-colour the exported artwork so every card can be selected.
-                    const filter =
-                        iconColor === "white"
-                            ? isSelected
-                                ? ""
-                                : "brightness-0"
-                            : isSelected
-                              ? "brightness-0 invert"
-                              : "";
 
                     return (
                         <button
@@ -65,18 +64,19 @@ export default function BrowseByCategory() {
                             type="button"
                             aria-pressed={isSelected}
                             onClick={() => setSelected(label)}
-                            className={`flex h-[145px] w-[170px] shrink-0 cursor-pointer flex-col items-center justify-end gap-4 rounded px-4 pb-6 text-mid leading-6 transition-colors ${
+                            className={cn(
+                                "flex h-[145px] w-[170px] shrink-0 cursor-pointer flex-col items-center justify-end gap-4 rounded border px-4 pb-6 text-mid leading-6 transition-colors",
                                 isSelected
-                                    ? "border border-primary bg-primary text-heading-white shadow-[0_1px_13px_rgba(0,0,0,0.05)]"
-                                    : "border border-black/30 text-text-black hover:border-primary"
-                            }`}
+                                    ? "border-primary bg-primary text-heading-white shadow-[0_1px_13px_rgba(0,0,0,0.05)]"
+                                    : "border-black/30 text-text-black hover:border-primary",
+                            )}
                         >
-                            <span className={filter}>{iconNode}</span>
+                            <span className={getIconFilter(iconColor, isSelected)}>{iconNode}</span>
                             {label}
                         </button>
                     );
                 })}
             </div>
-        </section>
+        </Container>
     );
 }

@@ -2,6 +2,7 @@ import serviceBg from "../../assets/icons/svc-bg.svg";
 import deliveryIcon from "../../assets/icons/svc-delivery.svg";
 import supportIcon from "../../assets/icons/svc-support.svg";
 import shieldIcon from "../../assets/icons/svc-shield.svg";
+import Container from "../ui/Container";
 
 const services = [
     {
@@ -15,7 +16,7 @@ const services = [
 
 export default function Services() {
     return (
-        <section className="mx-auto max-w-[943px] px-4">
+        <Container as="section" className="max-w-[943px]">
             <ul className="grid gap-12 text-center sm:grid-cols-3 lg:gap-[88px]">
                 {services.map(({ icon, title, text }) => (
                     <li key={title} className="flex flex-col items-center gap-6">
@@ -30,6 +31,6 @@ export default function Services() {
                     </li>
                 ))}
             </ul>
-        </section>
+        </Container>
     );
 }

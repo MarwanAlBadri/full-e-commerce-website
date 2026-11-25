@@ -7,6 +7,7 @@ import star3 from "../../assets/icons/star-3.svg";
 import star4 from "../../assets/icons/star-4.svg";
 import star45 from "../../assets/icons/star-4-half.svg";
 import star5 from "../../assets/icons/star-5.svg";
+import { cn } from "../../lib/cn";
 
 const starImages = { 3: star3, 4: star4, 4.5: star45, 5: star5 };
 
@@ -17,11 +18,7 @@ interface ProductCardProps {
     className?: string;
 }
 
-export default function ProductCard({
-    product,
-    layout = "stacked",
-    className = "",
-}: ProductCardProps) {
+export default function ProductCard({ product, layout = "stacked", className }: ProductCardProps) {
     const { name, price, oldPrice, discount, rating, reviews, image, frame, crop, isNew, colors } =
         product;
 
@@ -43,7 +40,7 @@ export default function ProductCard({
     );
 
     return (
-        <article className={`flex flex-col gap-4 ${className}`}>
+        <article className={cn("flex flex-col gap-4", className)}>
             <div className="group relative h-[250px] overflow-clip rounded bg-secondary">
                 {discount && (
                     <span className="absolute top-3 left-3 rounded bg-primary px-3 py-1 text-[12px] leading-[18px] text-heading-white">

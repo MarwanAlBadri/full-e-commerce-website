@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
 import { useCountdown } from "../../hooks/useCountdown";
 import boombox from "../../assets/home/boombox.png";
 import glow from "../../assets/home/promo-glow.svg";
 import timerCircle from "../../assets/icons/timer-circle.svg";
 import { ROUTES } from "../../constants/routes";
+import Container from "../ui/Container";
+import Button from "../ui/Button";
 
 const PROMO_SECONDS = 5 * 86400 + 23 * 3600 + 59 * 60 + 35;
 
@@ -23,7 +24,7 @@ export default function PromoBanner() {
     const { days, hours, minutes, seconds } = useCountdown(PROMO_SECONDS);
 
     return (
-        <section className="mx-auto max-w-[1202px] px-4">
+        <Container as="section">
             <div className="relative grid min-h-[500px] overflow-hidden bg-black lg:grid-cols-[1fr_1fr]">
                 <div className="relative z-10 flex flex-col items-start gap-8 px-6 py-12 lg:pl-14">
                     <p className="text-mid leading-5 font-semibold text-green">Categories</p>
@@ -36,12 +37,9 @@ export default function PromoBanner() {
                         <TimeCircle value={minutes} label="Minutes" />
                         <TimeCircle value={seconds} label="Seconds" />
                     </div>
-                    <Link
-                        to={ROUTES.home}
-                        className="rounded bg-green px-12 py-4 text-mid leading-6 font-medium text-heading-white hover:opacity-90"
-                    >
+                    <Button to={ROUTES.home} variant="success">
                         Buy Now!
-                    </Link>
+                    </Button>
                 </div>
 
                 <div className="relative flex items-center justify-center px-4 pb-10 lg:p-0">
@@ -62,6 +60,6 @@ export default function PromoBanner() {
                     />
                 </div>
             </div>
-        </section>
+        </Container>
     );
 }

@@ -1,5 +1,6 @@
 import arrowLeft from "../../assets/icons/arrow-circle-left.svg";
 import arrowRight from "../../assets/icons/arrow-circle-right.svg";
+import { cn } from "../../lib/cn";
 
 interface CarouselArrowsProps {
     onPrev?: () => void;
@@ -12,12 +13,12 @@ export default function CarouselArrows({
     onPrev,
     onNext,
     disabled,
-    className = "",
+    className,
 }: CarouselArrowsProps) {
     const base =
         "size-[46px] cursor-pointer transition-opacity hover:opacity-80 disabled:cursor-default disabled:opacity-50";
     return (
-        <div className={`flex gap-2 ${className}`}>
+        <div className={cn("flex gap-2", className)}>
             <button
                 type="button"
                 aria-label="Previous"

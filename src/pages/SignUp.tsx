@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import AuthLayout, { authInputClass } from "../components/auth/AuthLayout";
 import googleIcon from "../assets/icons/google.svg";
 import { ROUTES } from "../constants/routes";
+import Button from "../components/ui/Button";
 
 export default function SignUp() {
     return (
@@ -42,12 +43,9 @@ export default function SignUp() {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                    <button
-                        type="submit"
-                        className="w-full cursor-pointer rounded bg-primary py-4 text-mid leading-6 font-medium text-heading-white hover:opacity-90"
-                    >
+                    <Button type="submit" className="w-full px-0">
                         Create Account
-                    </button>
+                    </Button>
                     <button
                         type="button"
                         className="flex w-full cursor-pointer items-center justify-center gap-4 rounded border border-black/40 py-4 text-mid leading-6 hover:bg-secondary"

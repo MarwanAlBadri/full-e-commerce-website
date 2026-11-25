@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { Link } from "react-router-dom";
 import SectionHeader from "../ui/SectionHeader";
 import CarouselArrows from "../ui/CarouselArrows";
 import ProductCard from "../ui/ProductCard";
@@ -7,6 +6,8 @@ import { flashSaleProducts } from "../../data/products";
 import { useCountdown } from "../../hooks/useCountdown";
 import timerDot from "../../assets/icons/timer-dot.svg";
 import { ROUTES } from "../../constants/routes";
+import Container from "../ui/Container";
+import Button from "../ui/Button";
 
 const FLASH_SALE_SECONDS = 3 * 86400 + 23 * 3600 + 19 * 60 + 56;
 
@@ -38,7 +39,7 @@ export default function FlashSales() {
         trackRef.current?.scrollBy({ left: direction * 300, behavior: "smooth" });
 
     return (
-        <section className="mx-auto max-w-[1202px] px-4">
+        <Container as="section">
             <div className="flex flex-wrap items-end justify-between gap-6">
                 <SectionHeader label="Today’s" title="Flash Sales">
                     <div className="flex items-start gap-[17px]">
@@ -68,13 +69,8 @@ export default function FlashSales() {
             </div>
 
             <div className="mt-[60px] flex justify-center">
-                <Link
-                    to={ROUTES.home}
-                    className="rounded bg-primary px-12 py-4 text-mid leading-6 font-medium text-heading-white hover:opacity-90"
-                >
-                    View All Products
-                </Link>
+                <Button to={ROUTES.home}>View All Products</Button>
             </div>
-        </section>
+        </Container>
     );
 }

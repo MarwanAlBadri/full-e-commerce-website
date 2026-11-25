@@ -10,6 +10,7 @@ import qrcode from "../../assets/images/qrcode.png";
 import googlePlay from "../../assets/images/googleplay.png";
 import appStore from "../../assets/images/appstore.png";
 import { ROUTES } from "../../constants/routes";
+import Container from "../ui/Container";
 
 const columnTitle = "text-xl leading-7 font-medium";
 const columnList = "flex flex-col gap-4 text-mid leading-6";
@@ -17,7 +18,7 @@ const columnList = "flex flex-col gap-4 text-mid leading-6";
 export default function Footer() {
     return (
         <footer className="bg-black text-heading-white">
-            <div className="mx-auto grid max-w-[1202px] grid-cols-1 gap-10 px-4 pt-12 pb-10 sm:grid-cols-2 lg:grid-cols-3 xl:flex xl:justify-between xl:pt-20 xl:pb-[60px]">
+            <Container className="grid grid-cols-1 gap-10 pt-12 pb-10 sm:grid-cols-2 lg:grid-cols-3 xl:flex xl:justify-between xl:pt-20 xl:pb-[60px]">
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-col gap-6">
                         <span className="font-inter text-xxl leading-6 font-bold tracking-[0.72px]">
@@ -129,7 +130,7 @@ export default function Footer() {
                         <img src={linkedin} alt="LinkedIn" className="size-6" />
                     </div>
                 </div>
-            </div>
+            </Container>
 
             <div className="flex flex-col items-center gap-4 pb-4 opacity-40">
                 <img src={footerLine} alt="" className="h-px w-full" />

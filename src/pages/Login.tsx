@@ -1,4 +1,5 @@
 import AuthLayout, { authInputClass } from "../components/auth/AuthLayout";
+import Button from "../components/ui/Button";
 
 export default function Login() {
     return (
@@ -31,12 +32,7 @@ export default function Login() {
                 </div>
 
                 <div className="flex items-center justify-between">
-                    <button
-                        type="submit"
-                        className="cursor-pointer rounded bg-primary px-12 py-4 text-mid leading-6 font-medium text-heading-white hover:opacity-90"
-                    >
-                        Log In
-                    </button>
+                    <Button type="submit">Log In</Button>
                     <button
                         type="button"
                         className="cursor-pointer text-mid leading-6 text-primary"
