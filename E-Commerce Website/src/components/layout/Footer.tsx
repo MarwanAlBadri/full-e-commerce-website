@@ -16,7 +16,7 @@ const columnList = 'flex flex-col gap-4 text-mid leading-6'
 export default function Footer() {
   return (
     <footer className="bg-black text-heading-white">
-      <div className="mx-auto flex max-w-[1170px] justify-between pt-20 pb-[60px]">
+      <div className="mx-auto grid max-w-[1202px] grid-cols-1 gap-10 px-4 pt-12 pb-10 sm:grid-cols-2 lg:grid-cols-3 xl:flex xl:justify-between xl:pt-20 xl:pb-[60px]">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-6">
             <span className="font-inter text-xxl leading-6 font-bold tracking-[0.72px]">Exclusive</span>

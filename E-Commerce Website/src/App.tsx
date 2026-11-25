@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './components/layout/Layout'
 import Placeholder from './pages/Placeholder'
+import SignUp from './pages/SignUp'
+import Login from './pages/Login'
 
 const pages = [
   { path: '/', title: 'Home' },
-  { path: '/signup', title: 'Sign Up' },
-  { path: '/login', title: 'Log In' },
   { path: '/wishlist', title: 'Wishlist' },
   { path: '/cart', title: 'Cart' },
   { path: '/checkout', title: 'Checkout' },
@@ -21,6 +21,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
           {pages.map(({ path, title }) => (
             <Route key={path} path={path} element={<Placeholder title={title} />} />
           ))}
