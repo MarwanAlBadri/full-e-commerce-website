@@ -10,7 +10,7 @@ const PROMO_SECONDS = 5 * 86400 + 23 * 3600 + 59 * 60 + 35;
 
 function TimeCircle({ value, label }: { value: string; label: string }) {
     return (
-        <div className="relative size-[62px]">
+        <div className="relative size-14 sm:size-[62px]">
             <img src={timerCircle} alt="" className="absolute inset-0 size-full" />
             <div className="absolute inset-0 flex flex-col items-center justify-center text-text-black">
                 <span className="-mb-1 text-mid leading-5 font-semibold">{value}</span>
@@ -25,39 +25,37 @@ export default function PromoBanner() {
 
     return (
         <Container as="section">
-            <div className="relative grid min-h-[500px] overflow-hidden bg-black lg:grid-cols-[1fr_1fr]">
-                <div className="relative z-10 flex flex-col items-start gap-8 px-6 py-12 lg:pl-14">
+            <div className="grid overflow-hidden bg-black md:min-h-[400px] md:grid-cols-2 lg:min-h-[500px] lg:grid-cols-[526px_minmax(0,1fr)]">
+                <div className="relative z-10 flex flex-col items-start justify-center gap-8 px-4 py-8 sm:px-6 md:pr-0 lg:pl-14">
                     <p className="text-mid leading-5 font-semibold text-green">Categories</p>
-                    <h2 className="font-inter text-[34px] leading-[44px] font-semibold tracking-[1.92px] text-heading-white md:text-heading-mid md:leading-[60px] lg:w-[443px]">
+                    <h2 className="max-w-[460px] font-inter text-[28px] leading-9 font-semibold tracking-[1.92px] text-heading-white sm:text-[32px] sm:leading-[42px] lg:text-heading-mid lg:leading-[60px]">
                         Enhance Your Music Experience
                     </h2>
-                    <div className="flex flex-wrap gap-6">
-                        <TimeCircle value={days} label="Days" />
+                    <div className="flex gap-2 sm:gap-6">
                         <TimeCircle value={hours} label="Hours" />
+                        <TimeCircle value={days} label="Days" />
                         <TimeCircle value={minutes} label="Minutes" />
                         <TimeCircle value={seconds} label="Seconds" />
                     </div>
-                    <Button to={ROUTES.home} variant="success">
+                    <Button to={ROUTES.home} variant="success" className="mt-2">
                         Buy Now!
                     </Button>
                 </div>
 
-                <div className="relative flex items-center justify-center px-4 pb-10 lg:p-0">
-                    <span
-                        className="absolute -inset-x-0 inset-y-0 hidden lg:block"
-                        aria-hidden="true"
-                    >
+                <div className="flex items-center justify-center px-4 pb-8 md:py-0 md:pl-0 xl:pr-11">
+                    <div className="relative w-full max-w-[568px]">
+                        {/* Soft light behind the speaker, sized and offset relative to it as in Figma. */}
                         <img
                             src={glow}
                             alt=""
-                            className="absolute inset-[-40%_-39.68%] size-[180%] max-w-none"
+                            className="pointer-events-none absolute top-1/2 left-[46%] w-[159%] max-w-none -translate-x-1/2 -translate-y-1/2"
                         />
-                    </span>
-                    <img
-                        src={boombox}
-                        alt="JBL Boombox speaker"
-                        className="relative aspect-[568/330] w-full max-w-[568px] -scale-x-100"
-                    />
+                        <img
+                            src={boombox}
+                            alt="JBL Boombox speaker"
+                            className="relative aspect-[568/330] w-full -scale-x-100"
+                        />
+                    </div>
                 </div>
             </div>
         </Container>
