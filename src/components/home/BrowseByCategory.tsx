@@ -40,15 +40,12 @@ export default function BrowseByCategory() {
         <section className="mx-auto max-w-[1202px] px-4">
             <div className="flex flex-wrap items-end justify-between gap-6">
                 <SectionHeader label="Categories" title="Browse By Category" />
-                <CarouselArrows
-                    onPrev={() => scroll(-1)}
-                    onNext={() => scroll(1)}
-                />
+                <CarouselArrows onPrev={() => scroll(-1)} onNext={() => scroll(1)} />
             </div>
 
             <div
                 ref={trackRef}
-                className="mt-[60px] flex gap-[30px] overflow-x-auto scroll-smooth py-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                className="mt-[60px] flex [scrollbar-width:none] gap-[30px] overflow-x-auto scroll-smooth py-1 [&::-webkit-scrollbar]:hidden"
             >
                 {categories.map(({ label, icon: iconNode, iconColor }) => {
                     const isSelected = selected === label;
