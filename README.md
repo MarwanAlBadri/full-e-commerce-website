@@ -3,7 +3,7 @@
 A responsive online store built with React for the Almdrasa Front-End Diploma graduation project,
 following the "Exclusive" Figma design.
 
-**Live site:** _add the Vercel URL here after deploying_
+**Live site:** <https://full-e-commerce-website-nine.vercel.app/>
 
 ## Features
 
@@ -13,6 +13,7 @@ following the "Exclusive" Figma design.
 - Wishlist and shopping cart with a live header counter and a demo coupon (`SAVE10`)
 - Checkout with form validation and an order confirmation (no real payment)
 - Sign up, log in, log out and an account area (profile, orders, reviews)
+- Placing an order and posting a review require signing in
 - About, Contact and 404 pages
 - Works on mobile, tablet and desktop
 
