@@ -1,11 +1,11 @@
-import CategorySidebar from "../components/home/CategorySidebar";
-import HeroBanner from "../components/home/HeroBanner";
-import FlashSales from "../components/home/FlashSales";
-import BrowseByCategory from "../components/home/BrowseByCategory";
 import BestSelling from "../components/home/BestSelling";
-import PromoBanner from "../components/home/PromoBanner";
+import BrowseByCategory from "../components/home/BrowseByCategory";
+import CategorySidebar from "../components/home/CategorySidebar";
 import ExploreProducts from "../components/home/ExploreProducts";
+import FlashSales from "../components/home/FlashSales";
+import HeroBanner from "../components/home/HeroBanner";
 import NewArrival from "../components/home/NewArrival";
+import PromoBanner from "../components/home/PromoBanner";
 import Services from "../components/home/Services";
 import Container from "../components/ui/Container";
 
@@ -15,7 +15,10 @@ function Divider() {
 
 export default function Home() {
     return (
-        <div className="pb-16 lg:pb-[140px]">
+        // `@container` lets the scrolling rows measure the page width without the scrollbar.
+        <div className="@container pb-16 lg:pb-[140px]">
+            <h1 className="sr-only">Exclusive online store</h1>
+
             <Container className="flex">
                 <div className="hidden pt-10 pr-4 lg:block lg:border-r lg:border-black/30">
                     <CategorySidebar />

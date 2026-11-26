@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import heroImage from "../../assets/home/hero-iphone.png";
-import appleLogo from "../../assets/home/apple-logo.png";
+import appleLogo from "../../assets/home/apple-logo.webp";
+import heroImage from "../../assets/home/hero-iphone.webp";
 import arrowRight from "../../assets/icons/arrow-right.svg";
 import { ROUTES } from "../../constants/routes";
 import { cn } from "../../lib/cn";
@@ -13,7 +13,7 @@ export default function HeroBanner() {
 
     return (
         <div className="relative flex min-h-[344px] flex-col overflow-hidden bg-black sm:flex-row sm:items-center">
-            <div className="flex flex-col gap-5 px-6 pt-8 pb-4 sm:flex-1 sm:py-8 lg:pl-16">
+            <div className="flex flex-col gap-5 px-6 pt-8 pb-4 sm:shrink-0 sm:py-8 xl:pl-16">
                 <div className="flex items-center gap-6">
                     <span className="relative block h-[49px] w-10 overflow-hidden">
                         <img
@@ -25,11 +25,11 @@ export default function HeroBanner() {
                     </span>
                     <p className="text-mid leading-6 text-heading-white">iPhone 14 Series</p>
                 </div>
-                <h2 className="font-inter text-[34px] leading-[44px] font-semibold tracking-[1.92px] text-heading-white md:text-heading-mid md:leading-[60px] lg:w-[294px]">
+                <h2 className="max-w-[300px] font-inter text-[34px] leading-[44px] font-semibold tracking-[1.92px] text-heading-white lg:text-[40px] lg:leading-[50px] xl:text-heading-mid xl:leading-[60px]">
                     Up to 10% off Voucher
                 </h2>
                 <Link
-                    to={ROUTES.home}
+                    to={`${ROUTES.search}?category=phones`}
                     className="flex w-fit items-center gap-2 border-b border-heading-white pb-1 text-mid leading-6 font-medium text-heading-white"
                 >
                     Shop Now
@@ -40,7 +40,7 @@ export default function HeroBanner() {
             <img
                 src={heroImage}
                 alt="iPhone 14 Pro in deep purple"
-                className="mt-4 aspect-[496/352] w-full max-w-[496px] self-center object-cover sm:mt-4 sm:w-[55%] sm:self-end"
+                className="mt-4 aspect-[496/352] w-full max-w-[496px] self-center object-contain object-bottom sm:ml-auto sm:min-w-0 sm:flex-1 sm:self-end"
             />
 
             <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-3">

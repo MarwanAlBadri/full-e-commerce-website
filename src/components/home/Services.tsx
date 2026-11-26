@@ -16,8 +16,8 @@ const services = [
 
 export default function Services() {
     return (
-        <Container as="section" className="max-w-[943px]">
-            <ul className="grid gap-12 text-center sm:grid-cols-3 lg:gap-[88px]">
+        <Container as="section" className="max-w-[1202px]">
+            <ul className="grid gap-12 text-center sm:grid-cols-3 sm:gap-6 lg:flex lg:justify-center lg:gap-[88px]">
                 {services.map(({ icon, title, text }) => (
                     <li key={title} className="flex flex-col items-center gap-6">
                         <span className="relative size-20">

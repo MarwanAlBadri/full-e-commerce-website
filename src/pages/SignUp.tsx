@@ -1,65 +1,91 @@
-import { Link } from "react-router-dom";
-import AuthLayout, { authInputClass } from "../components/auth/AuthLayout";
+import { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import googleIcon from "../assets/icons/google.svg";
-import { ROUTES } from "../constants/routes";
+import AuthLayout from "../components/auth/AuthLayout";
 import Button from "../components/ui/Button";
+import TextField from "../components/ui/TextField";
+import { ROUTES } from "../constants/routes";
+import { TEST_IDS } from "../constants/testIds";
+import { useAsyncAction } from "../hooks/useAsyncAction";
+import { useAuth } from "../hooks/useAuth";
+import { useFormState } from "../hooks/useFormState";
+import { validateSignUp } from "../utils/validation";
 
 export default function SignUp() {
-    return (
-        <AuthLayout>
-            <div className="flex flex-col gap-6">
-                <h1 className="font-inter text-[30px] leading-[30px] font-medium tracking-[1.44px] md:text-heading-small">
-                    Create an account
-                </h1>
-                <p className="text-mid leading-6">Enter your details below</p>
-            </div>
+    const { signUp } = useAuth();
+    const [searchParams] = useSearchParams();
+    const { field, handleSubmit } = useFormState(
+        { name: "", identifier: "", password: "" },
+        validateSignUp,
+    );
+    const { error, isPending, run } = useAsyncAction();
+    const [notice, setNotice] = useState("");
 
-            <form className="mt-12 flex flex-col gap-10" onSubmit={(e) => e.preventDefault()}>
+    return (
+        <AuthLayout title="Create an account">
+            <form
+                data-testid={TEST_IDS.signUpForm}
+                noValidate
+                className="mt-12 flex flex-col gap-10"
+                // `GuestOnly` redirects as soon as the account is created.
+                onSubmit={handleSubmit((values) => run(() => signUp(values)))}
+            >
                 <div className="flex flex-col gap-10">
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
+                    <TextField
+                        {...field("name")}
+                        variant="underline"
+                        label="Name"
                         autoComplete="name"
                         required
-                        className={authInputClass}
                     />
-                    <input
-                        type="text"
-                        name="identifier"
-                        placeholder="Email or Phone Number"
+                    <TextField
+                        {...field("identifier")}
+                        variant="underline"
+                        label="Email or Phone Number"
                         autoComplete="username"
                         required
-                        className={authInputClass}
                     />
-                    <input
+                    <TextField
+                        {...field("password")}
+                        variant="underline"
+                        label="Password"
                         type="password"
-                        name="password"
-                        placeholder="Password"
                         autoComplete="new-password"
                         required
-                        className={authInputClass}
                     />
                 </div>
 
                 <div className="flex flex-col gap-4">
-                    <Button type="submit" className="w-full px-0">
+                    {error && (
+                        <p role="alert" className="text-small text-primary">
+                            {error}
+                        </p>
+                    )}
+                    <Button type="submit" disabled={isPending} className="w-full px-0">
                         Create Account
                     </Button>
                     <button
                         type="button"
+                        onClick={() =>
+                            setNotice("Google sign-up isn't available yet. Use the form above.")
+                        }
                         className="flex w-full cursor-pointer items-center justify-center gap-4 rounded border border-black/40 py-4 text-mid leading-6 hover:bg-secondary"
                     >
                         <img src={googleIcon} alt="" className="size-6" />
                         Sign up with Google
                     </button>
+                    {notice && (
+                        <p role="status" className="text-small text-text-black/70">
+                            {notice}
+                        </p>
+                    )}
                 </div>
             </form>
 
             <p className="mt-8 flex items-center justify-center gap-4 text-mid leading-6">
                 <span className="opacity-70">Already have account?</span>
                 <Link
-                    to={ROUTES.logIn}
+                    to={{ pathname: ROUTES.logIn, search: searchParams.toString() }}
                     className="border-b border-black/40 pb-1 font-medium opacity-70"
                 >
                     Log in

@@ -1,15 +1,17 @@
-import { useRef } from "react";
-import SectionHeader from "../ui/SectionHeader";
-import CarouselArrows from "../ui/CarouselArrows";
-import ProductCard from "../ui/ProductCard";
-import { flashSaleProducts } from "../../data/products";
-import { useCountdown } from "../../hooks/useCountdown";
 import timerDot from "../../assets/icons/timer-dot.svg";
 import { ROUTES } from "../../constants/routes";
-import Container from "../ui/Container";
+import { useCountdown } from "../../hooks/useCountdown";
+import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
+import { getProductsByTag } from "../../services/productService";
 import Button from "../ui/Button";
+import CarouselArrows from "../ui/CarouselArrows";
+import Container from "../ui/Container";
+import ProductCard from "../ui/ProductCard";
+import ScrollRow from "../ui/ScrollRow";
+import SectionHeader from "../ui/SectionHeader";
 
 const FLASH_SALE_SECONDS = 3 * 86400 + 23 * 3600 + 19 * 60 + 56;
+const CARD_STEP = 300;
 
 function Colon() {
     return (
@@ -31,45 +33,49 @@ function TimerUnit({ label, value }: { label: string; value: string }) {
     );
 }
 
-export default function FlashSales() {
+function SaleTimer() {
     const { days, hours, minutes, seconds } = useCountdown(FLASH_SALE_SECONDS);
-    const trackRef = useRef<HTMLDivElement>(null);
 
-    const scroll = (direction: 1 | -1) =>
-        trackRef.current?.scrollBy({ left: direction * 300, behavior: "smooth" });
+    return (
+        <div className="flex items-start gap-[17px]">
+            <TimerUnit label="Days" value={days} />
+            <Colon />
+            <TimerUnit label="Hours" value={hours} />
+            <Colon />
+            <TimerUnit label="Minutes" value={minutes} />
+            <Colon />
+            <TimerUnit label="Seconds" value={seconds} />
+        </div>
+    );
+}
+
+export default function FlashSales() {
+    const { ref, scrollPrev, scrollNext } = useHorizontalScroll(CARD_STEP);
 
     return (
         <Container as="section">
-            <div className="flex flex-wrap items-end justify-between gap-6">
-                <SectionHeader label="Today’s" title="Flash Sales">
-                    <div className="flex items-start gap-[17px]">
-                        <TimerUnit label="Days" value={days} />
-                        <Colon />
-                        <TimerUnit label="Hours" value={hours} />
-                        <Colon />
-                        <TimerUnit label="Minutes" value={minutes} />
-                        <Colon />
-                        <TimerUnit label="Seconds" value={seconds} />
-                    </div>
-                </SectionHeader>
-                <CarouselArrows onPrev={() => scroll(-1)} onNext={() => scroll(1)} />
-            </div>
-
-            <div
-                ref={trackRef}
-                className="mt-10 flex [scrollbar-width:none] gap-[30px] overflow-x-auto scroll-smooth pb-2 [&::-webkit-scrollbar]:hidden"
+            <SectionHeader
+                label="Today’s"
+                title="Flash Sales"
+                actions={<CarouselArrows onPrev={scrollPrev} onNext={scrollNext} />}
             >
-                {flashSaleProducts.map((product) => (
-                    <ProductCard
-                        key={product.id}
-                        product={product}
-                        className="w-[270px] shrink-0"
-                    />
-                ))}
+                <SaleTimer />
+            </SectionHeader>
+
+            <div className="mt-10">
+                <ScrollRow ref={ref}>
+                    {getProductsByTag("flash-sale").map((product) => (
+                        <ProductCard
+                            key={product.id}
+                            product={product}
+                            className="w-[270px] shrink-0"
+                        />
+                    ))}
+                </ScrollRow>
             </div>
 
             <div className="mt-[60px] flex justify-center">
-                <Button to={ROUTES.home}>View All Products</Button>
+                <Button to={`${ROUTES.search}?tag=flash-sale`}>View All Products</Button>
             </div>
         </Container>
     );

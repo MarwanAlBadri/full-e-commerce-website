@@ -1,5 +1,5 @@
 import { useCountdown } from "../../hooks/useCountdown";
-import boombox from "../../assets/home/boombox.png";
+import boombox from "../../assets/home/boombox.webp";
 import glow from "../../assets/home/promo-glow.svg";
 import timerCircle from "../../assets/icons/timer-circle.svg";
 import { ROUTES } from "../../constants/routes";
@@ -37,7 +37,7 @@ export default function PromoBanner() {
                         <TimeCircle value={minutes} label="Minutes" />
                         <TimeCircle value={seconds} label="Seconds" />
                     </div>
-                    <Button to={ROUTES.home} variant="success" className="mt-2">
+                    <Button to={`${ROUTES.search}?tag=all`} variant="success" className="mt-2">
                         Buy Now!
                     </Button>
                 </div>

@@ -1,22 +1,21 @@
-import SectionHeader from "../ui/SectionHeader";
-import ProductCard from "../ui/ProductCard";
-import { bestSellingProducts } from "../../data/products";
 import { ROUTES } from "../../constants/routes";
-import Container from "../ui/Container";
+import { getProductsByTag } from "../../services/productService";
 import Button from "../ui/Button";
+import Container from "../ui/Container";
+import ProductGrid from "../ui/ProductGrid";
+import SectionHeader from "../ui/SectionHeader";
 
 export default function BestSelling() {
     return (
         <Container as="section">
-            <div className="flex flex-wrap items-end justify-between gap-6">
-                <SectionHeader label="This Month" title="Best Selling Products" />
-                <Button to={ROUTES.home}>View All</Button>
-            </div>
+            <SectionHeader
+                label="This Month"
+                title="Best Selling Products"
+                actions={<Button to={`${ROUTES.search}?tag=best-selling`}>View All</Button>}
+            />
 
-            <div className="mt-[60px] grid gap-[30px] sm:grid-cols-2 lg:grid-cols-4">
-                {bestSellingProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                ))}
+            <div className="mt-[60px]">
+                <ProductGrid products={getProductsByTag("best-selling")} />
             </div>
         </Container>
     );

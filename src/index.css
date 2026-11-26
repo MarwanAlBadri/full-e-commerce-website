@@ -10,6 +10,7 @@
     --color-text-black: #000000;
     --color-text-white: #ffffff;
     --color-green: #00ff66;
+    --color-star: #ffad33;
 
     /* Font sizes */
     --text-small: 14px;
@@ -24,4 +25,21 @@
     /* Fonts */
     --font-inter: "Inter Variable", system-ui, sans-serif;
     --font-sans: "Poppins", system-ui, sans-serif;
+}
+
+@layer base {
+    :focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
 }

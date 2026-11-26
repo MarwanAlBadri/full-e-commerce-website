@@ -7,7 +7,7 @@ import linkedin from "../../assets/icons/linkedin.svg";
 import copyright from "../../assets/icons/copyright.svg";
 import footerLine from "../../assets/icons/footer-line.svg";
 import qrcode from "../../assets/images/qrcode.png";
-import googlePlay from "../../assets/images/googleplay.png";
+import googlePlay from "../../assets/images/googleplay.webp";
 import appStore from "../../assets/images/appstore.png";
 import { ROUTES } from "../../constants/routes";
 import Container from "../ui/Container";

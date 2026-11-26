@@ -6,6 +6,7 @@ export const STORAGE_KEYS = {
     wishlist: "exclusive:wishlist",
     reviews: "exclusive:reviews",
     orders: "exclusive:orders",
+    billing: "exclusive:billing",
 } as const;
 
 /** sessionStorage keys: values that only need to survive until the tab is closed. */

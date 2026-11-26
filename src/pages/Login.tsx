@@ -1,45 +1,73 @@
-import AuthLayout, { authInputClass } from "../components/auth/AuthLayout";
+import { useState } from "react";
+import AuthLayout from "../components/auth/AuthLayout";
 import Button from "../components/ui/Button";
+import TextField from "../components/ui/TextField";
+import { TEST_IDS } from "../constants/testIds";
+import { useAsyncAction } from "../hooks/useAsyncAction";
+import { useAuth } from "../hooks/useAuth";
+import { useFormState } from "../hooks/useFormState";
+import { validateLogIn } from "../utils/validation";
 
 export default function Login() {
-    return (
-        <AuthLayout>
-            <div className="flex flex-col gap-6">
-                <h1 className="font-inter text-[30px] leading-[30px] font-medium tracking-[1.44px] md:text-heading-small">
-                    Log in to Exclusive
-                </h1>
-                <p className="text-mid leading-6">Enter your details below</p>
-            </div>
+    const { logIn } = useAuth();
+    const { field, handleSubmit } = useFormState({ identifier: "", password: "" }, validateLogIn);
+    const { error, isPending, run } = useAsyncAction();
+    const [notice, setNotice] = useState("");
 
-            <form className="mt-12 flex flex-col gap-10" onSubmit={(e) => e.preventDefault()}>
+    return (
+        <AuthLayout title="Log in to Exclusive">
+            <form
+                data-testid={TEST_IDS.logInForm}
+                noValidate
+                className="mt-12 flex flex-col gap-10"
+                // `GuestOnly` redirects as soon as the user is signed in.
+                onSubmit={handleSubmit((values) => run(() => logIn(values)))}
+            >
                 <div className="flex flex-col gap-10">
-                    <input
-                        type="text"
-                        name="identifier"
-                        placeholder="Email or Phone Number"
+                    <TextField
+                        {...field("identifier")}
+                        variant="underline"
+                        label="Email or Phone Number"
                         autoComplete="username"
                         required
-                        className={authInputClass}
                     />
-                    <input
+                    <TextField
+                        {...field("password")}
+                        variant="underline"
+                        label="Password"
                         type="password"
-                        name="password"
-                        placeholder="Password"
                         autoComplete="current-password"
                         required
-                        className={authInputClass}
                     />
                 </div>
 
+                {error && (
+                    <p role="alert" className="text-small text-primary">
+                        {error}
+                    </p>
+                )}
+
                 <div className="flex items-center justify-between">
-                    <Button type="submit">Log In</Button>
+                    <Button type="submit" disabled={isPending}>
+                        Log In
+                    </Button>
                     <button
                         type="button"
+                        onClick={() =>
+                            setNotice(
+                                "Password reset emails aren't available in this demo store. Create a new account to continue.",
+                            )
+                        }
                         className="cursor-pointer text-mid leading-6 text-primary"
                     >
                         Forget Password?
                     </button>
                 </div>
+                {notice && (
+                    <p role="status" className="text-small text-text-black/70">
+                        {notice}
+                    </p>
+                )}
             </form>
         </AuthLayout>
     );
