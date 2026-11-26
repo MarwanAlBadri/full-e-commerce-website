@@ -51,3 +51,15 @@ test("passwords are not stored as plain text", async ({ page }) => {
     const stored = await page.evaluate(() => JSON.stringify(localStorage));
     expect(stored).not.toContain(user.password);
 });
+
+test("a new visitor can reach sign up from the log in page", async ({ page }) => {
+    await page.goto("/checkout");
+    await page.getByTestId("place-order").click();
+    await expect(page).toHaveURL(/\/login\?redirect=%2Fcheckout/);
+
+    await page.getByRole("main").getByRole("link", { name: "Sign up", exact: true }).click();
+
+    // The target page survives the switch between the two forms.
+    await expect(page).toHaveURL(/\/signup\?redirect=%2Fcheckout/);
+    await expect(page.getByTestId("signup-form")).toBeVisible();
+});

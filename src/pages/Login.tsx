@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import AuthLayout from "../components/auth/AuthLayout";
 import Button from "../components/ui/Button";
 import TextField from "../components/ui/TextField";
+import { ROUTES } from "../constants/routes";
 import { TEST_IDS } from "../constants/testIds";
 import { useAsyncAction } from "../hooks/useAsyncAction";
 import { useAuth } from "../hooks/useAuth";
@@ -10,6 +12,7 @@ import { validateLogIn } from "../utils/validation";
 
 export default function Login() {
     const { logIn } = useAuth();
+    const [searchParams] = useSearchParams();
     const { field, handleSubmit } = useFormState({ identifier: "", password: "" }, validateLogIn);
     const { error, isPending, run } = useAsyncAction();
     const [notice, setNotice] = useState("");
@@ -69,6 +72,17 @@ export default function Login() {
                     </p>
                 )}
             </form>
+
+            <p className="mt-8 flex items-center justify-center gap-4 text-mid leading-6">
+                <span className="opacity-70">Don’t have an account?</span>
+                {/* The query string keeps the page the visitor was heading to. */}
+                <Link
+                    to={{ pathname: ROUTES.signUp, search: searchParams.toString() }}
+                    className="border-b border-black/40 pb-1 font-medium opacity-70"
+                >
+                    Sign up
+                </Link>
+            </p>
         </AuthLayout>
     );
 }
