@@ -20,6 +20,13 @@ export interface Category {
     name: string;
 }
 
+export interface ProductColor {
+    name: string;
+    hex: string;
+    /** A sold-out colour is shown crossed out and cannot be chosen. */
+    inStock: boolean;
+}
+
 export interface Product {
     id: string;
     name: string;
@@ -31,8 +38,7 @@ export interface Product {
     rating: 3 | 4 | 4.5 | 5;
     reviewCount: number;
     images: [ProductImage, ...ProductImage[]];
-    /** Hex values of the available colours. */
-    colors?: string[];
+    colors?: ProductColor[];
     sizes?: string[];
     inStock: boolean;
     isNew?: boolean;

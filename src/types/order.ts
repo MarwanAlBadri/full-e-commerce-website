@@ -11,8 +11,7 @@ export interface OrderItem {
 
 export interface Order {
     id: string;
-    /** Null for guest checkouts. */
-    userId: string | null;
+    userId: string;
     items: OrderItem[];
     total: number;
     paymentMethod: PaymentMethod;

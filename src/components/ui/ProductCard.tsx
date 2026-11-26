@@ -9,10 +9,12 @@ import star5 from "../../assets/icons/star-5.svg";
 import { ROUTES } from "../../constants/routes";
 import { TEST_IDS } from "../../constants/testIds";
 import { useCart } from "../../hooks/useCart";
+import { useColorSelection } from "../../hooks/useColorSelection";
 import { useWishlist } from "../../hooks/useWishlist";
 import { cn } from "../../lib/cn";
 import type { Product } from "../../types/product";
 import { formatPrice } from "../../utils/format";
+import ColorSwatches from "./ColorSwatches";
 import HeartIcon from "./HeartIcon";
 import ProductPhoto from "./ProductPhoto";
 
@@ -70,6 +72,7 @@ export default function ProductCard({
     const isWishlistCard = variant === "wishlist";
     const isSaved = isInWishlist(id);
     const productPath = ROUTES.product(id);
+    const [selectedColor, selectColor] = useColorSelection(colors);
 
     const ratingRow = (
         <div className="flex items-start gap-2">
@@ -196,25 +199,11 @@ export default function ProductCard({
                     </>
                 )}
                 {colors && layout === "inline" && (
-                    <ul aria-label="Available colors" className="flex gap-2">
-                        {colors.map((color, index) => (
-                            <li
-                                key={color}
-                                className={cn(
-                                    "flex size-5 items-center justify-center rounded-full",
-                                    index === 0 && "border-2 border-black",
-                                )}
-                            >
-                                <span
-                                    className={cn(
-                                        "rounded-full",
-                                        index === 0 ? "size-3" : "size-[18px]",
-                                    )}
-                                    style={{ backgroundColor: color }}
-                                />
-                            </li>
-                        ))}
-                    </ul>
+                    <ColorSwatches
+                        colors={colors}
+                        selected={selectedColor}
+                        onSelect={selectColor}
+                    />
                 )}
             </div>
         </article>

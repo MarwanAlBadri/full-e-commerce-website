@@ -12,4 +12,5 @@ export const STORAGE_KEYS = {
 /** sessionStorage keys: values that only need to survive until the tab is closed. */
 export const SESSION_KEYS = {
     reviewDraft: "exclusive:review-draft",
+    checkoutDraft: "exclusive:checkout-draft",
 } as const;

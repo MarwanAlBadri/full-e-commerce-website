@@ -27,3 +27,12 @@ export async function addFirstProductToCart(page: Page) {
     await card.getByTestId("add-to-cart").click();
     return name;
 }
+
+export async function fillBilling(page: Page) {
+    const form = page.getByTestId("checkout-form");
+    await form.locator('input[name="firstName"]').fill("Sara");
+    await form.locator('input[name="streetAddress"]').fill("12 Test Street");
+    await form.locator('input[name="city"]').fill("Cairo");
+    await form.locator('input[name="phone"]').fill("01001234567");
+    await form.locator('input[name="email"]').fill("sara@example.com");
+}

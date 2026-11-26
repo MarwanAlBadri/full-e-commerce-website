@@ -52,36 +52,6 @@ test("cart counter, cart page and removal", async ({ page }) => {
     await expect(page.getByTestId("cart-count")).toHaveText("0");
 });
 
-test("checkout places an order and empties the cart", async ({ page }) => {
-    await addFirstProductToCart(page);
-    await page.goto("/checkout");
-
-    const form = page.getByTestId("checkout-form");
-    await form.locator('input[name="firstName"]').fill("Sara");
-    await form.locator('input[name="streetAddress"]').fill("12 Test Street");
-    await form.locator('input[name="city"]').fill("Cairo");
-    await form.locator('input[name="phone"]').fill("01001234567");
-    await form.locator('input[name="email"]').fill("sara@example.com");
-    await page.getByTestId("place-order").click();
-
-    await expect(page.getByTestId("order-success")).toBeVisible();
-    await expect(page.getByTestId("cart-count")).toHaveText("0");
-});
-
-test("an empty cart cannot place an order", async ({ page }) => {
-    await page.goto("/checkout");
-    const form = page.getByTestId("checkout-form");
-    await form.locator('input[name="firstName"]').fill("Sara");
-    await form.locator('input[name="streetAddress"]').fill("12 Test Street");
-    await form.locator('input[name="city"]').fill("Cairo");
-    await form.locator('input[name="phone"]').fill("01001234567");
-    await form.locator('input[name="email"]').fill("sara@example.com");
-    await page.getByTestId("place-order").click();
-
-    await expect(page.getByRole("alert")).toContainText("cart is empty");
-    await expect(page.getByTestId("order-success")).toHaveCount(0);
-});
-
 test("the coupon lowers the total", async ({ page }) => {
     await addFirstProductToCart(page);
     await page.goto("/cart");

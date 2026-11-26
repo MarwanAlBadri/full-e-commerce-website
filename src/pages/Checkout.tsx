@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, type FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import CouponForm from "../components/cart/CouponForm";
 import TotalsList from "../components/cart/TotalsList";
 import Breadcrumbs from "../components/ui/Breadcrumbs";
@@ -17,6 +17,7 @@ import type { Order, PaymentMethod } from "../types/order";
 import type { User } from "../types/user";
 import { formatPrice } from "../utils/format";
 import { calculateTotals } from "../utils/pricing";
+import { logInPathWithRedirect } from "../utils/redirect";
 import { isEmail, validateBilling, type BillingValues } from "../utils/validation";
 
 const billingFields = [
@@ -43,9 +44,13 @@ const paymentOptions: { value: PaymentMethod; label: string }[] = [
     { value: "cash", label: "Cash on delivery" },
 ];
 
-/** Saved details win; otherwise prefill what the account already knows. */
+/**
+ * What was typed before logging in wins, then the user's saved details,
+ * then whatever the account already knows.
+ */
 function getInitialBilling(user: User | null): BillingValues {
-    const saved = orderService.readSavedBilling();
+    const saved =
+        orderService.readCheckoutDraft() ?? (user && orderService.readSavedBilling(user.id));
     if (saved) return saved;
 
     const identifier = user?.identifier ?? "";
@@ -85,19 +90,20 @@ export default function Checkout() {
     const { user } = useAuth();
     const { lines, subtotal, couponCode, clearCart } = useCart();
     const [initialBilling] = useState(() => getInitialBilling(user));
-    const { field, handleSubmit } = useFormState(initialBilling, validateBilling);
+    const { values, field, handleSubmit } = useFormState(initialBilling, validateBilling);
+    const navigate = useNavigate();
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cash");
     const [shouldSave, setShouldSave] = useState(true);
     const [placedOrder, setPlacedOrder] = useState<Order | null>(null);
     const [cartError, setCartError] = useState("");
 
     const placeOrder = (billing: BillingValues) => {
-        if (!orderService.canPlaceOrder(lines)) {
+        if (!user || !orderService.canPlaceOrder(user.id, lines)) {
             setCartError("Your cart is empty. Add a product before placing the order.");
             return;
         }
         const order = orderService.createOrder({
-            userId: user?.id ?? null,
+            userId: user.id,
             items: lines.map(({ product, quantity }) => ({
                 productId: product.id,
                 name: product.name,
@@ -108,10 +114,24 @@ export default function Checkout() {
             paymentMethod,
             billing,
         });
-        orderService.saveBilling(shouldSave ? billing : null);
+        orderService.saveBilling(user.id, shouldSave ? billing : null);
+        orderService.clearCheckoutDraft();
         clearCart();
         setPlacedOrder(order);
         window.scrollTo({ top: 0 });
+    };
+
+    const submitOrder = handleSubmit(placeOrder);
+
+    const handleFormSubmit = (event: FormEvent) => {
+        if (user) {
+            submitOrder(event);
+            return;
+        }
+        // Visitors can't order: keep what they typed and come back after logging in.
+        event.preventDefault();
+        orderService.saveCheckoutDraft(values);
+        navigate(logInPathWithRedirect(ROUTES.checkout));
     };
 
     if (placedOrder) {
@@ -147,7 +167,7 @@ export default function Checkout() {
             <form
                 data-testid={TEST_IDS.checkoutForm}
                 noValidate
-                onSubmit={handleSubmit(placeOrder)}
+                onSubmit={handleFormSubmit}
                 className="grid grid-cols-1 gap-12 lg:grid-cols-[470px_minmax(0,1fr)] lg:gap-[170px]"
             >
                 <div className="flex flex-col gap-8">
@@ -204,6 +224,11 @@ export default function Checkout() {
                     {cartError && lines.length === 0 && (
                         <p role="alert" className="text-small text-primary">
                             {cartError}
+                        </p>
+                    )}
+                    {!user && (
+                        <p className="text-small text-text-black/60">
+                            You need to log in to place an order.
                         </p>
                     )}
                     <Button type="submit" data-testid={TEST_IDS.placeOrder} className="self-start">

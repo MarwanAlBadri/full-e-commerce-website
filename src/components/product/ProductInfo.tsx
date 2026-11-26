@@ -4,11 +4,13 @@ import deliveryIcon from "../../assets/icons/svc-delivery.svg";
 import { ROUTES } from "../../constants/routes";
 import { TEST_IDS } from "../../constants/testIds";
 import { useCart } from "../../hooks/useCart";
+import { useColorSelection } from "../../hooks/useColorSelection";
 import { useWishlist } from "../../hooks/useWishlist";
 import { cn } from "../../lib/cn";
 import type { Product } from "../../types/product";
 import { formatPrice } from "../../utils/format";
 import Button from "../ui/Button";
+import ColorSwatches from "../ui/ColorSwatches";
 import HeartIcon from "../ui/HeartIcon";
 import QuantityInput from "../ui/QuantityInput";
 import Stars from "../ui/Stars";
@@ -34,7 +36,7 @@ export default function ProductInfo({ product }: { product: Product }) {
     const { isInWishlist, toggleWishlist } = useWishlist();
     const navigate = useNavigate();
     const [quantity, setQuantity] = useState(1);
-    const [color, setColor] = useState(colors?.[0]);
+    const [selectedColor, selectColor] = useColorSelection(colors);
     const [size, setSize] = useState(sizes?.[Math.floor(sizes.length / 2)]);
     const [message, setMessage] = useState("");
 
@@ -62,26 +64,14 @@ export default function ProductInfo({ product }: { product: Product }) {
             </div>
 
             {colors && (
-                <fieldset className="flex items-center gap-4">
-                    <legend className="sr-only">Colour</legend>
-                    <span className="font-inter text-xl" aria-hidden="true">
-                        Colours:
-                    </span>
-                    {colors.map((option) => (
-                        <button
-                            key={option}
-                            type="button"
-                            aria-label={`Colour ${option}`}
-                            aria-pressed={option === color}
-                            onClick={() => setColor(option)}
-                            style={{ backgroundColor: option }}
-                            className={cn(
-                                "size-5 cursor-pointer rounded-full",
-                                option === color && "ring-2 ring-black ring-offset-2",
-                            )}
-                        />
-                    ))}
-                </fieldset>
+                <div className="flex items-center gap-4">
+                    <span className="font-inter text-xl">Colours:</span>
+                    <ColorSwatches
+                        colors={colors}
+                        selected={selectedColor}
+                        onSelect={selectColor}
+                    />
+                </div>
             )}
 
             {sizes && (
