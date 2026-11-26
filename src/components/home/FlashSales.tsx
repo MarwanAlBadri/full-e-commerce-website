@@ -63,7 +63,8 @@ export default function FlashSales() {
             </SectionHeader>
 
             <div className="mt-10">
-                <ScrollRow ref={ref}>
+                {/* Cards beyond the content width stay hidden until the arrows scroll to them. */}
+                <ScrollRow ref={ref} bleed={false}>
                     {getProductsByTag("flash-sale").map((product) => (
                         <ProductCard
                             key={product.id}
